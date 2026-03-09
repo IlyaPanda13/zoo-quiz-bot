@@ -19,7 +19,21 @@
 | **🔄 Перезапуск** | Кнопка «Заново» в любой момент. |
 
 ---
+## 📁 Структура проекта
 
+## 📁 Структура проекта
+
+- `main.py` — точка входа
+- `config.py` — конфигурация
+- `database.py` — база данных
+- `monitoring.py` — метрики
+- `handlers/`
+  - `start.py` — команда /start
+  - `quiz.py` — логика викторины
+  - `results.py` — результаты и доп. функции
+- `data/`
+  - `animals.py` — данные о животных
+  - `questions.py` — вопросы викторины
 ## 🛠 Технологии
 
 | Компонент | Технология |
@@ -31,16 +45,52 @@
 | Логирование | RotatingFileHandler |
 | Мониторинг | Кастомный модуль с декораторами |
 
-# Настройка .env
+## 🚀 Как запустить
 
-text
-BOT_TOKEN=ваш_токен
+## 1. Клонировать репозиторий
+
+bash
+git clone https://github.com/ilyapanda/zoo-quiz-bot.git
+cd zoo-quiz-bot
+2. Создать виртуальное окружение
+
+bash
+python3 -m venv venv
+source venv/bin/activate  # для Linux/Mac
+# или
+venv\Scripts\activate     # для Windows
+3. Установить зависимости
+
+bash
+pip install python-telegram-bot aiosmtplib python-dotenv
+4. Создать файл .env
+
+# Telegram
+BOT_TOKEN=ваш_токен_от_BotFather
 ADMIN_IDS=ваш_telegram_id
 
-Почта для уведомлений (Yandex)
-
+# Почта для уведомлений (Yandex)
 SMTP_HOST=smtp.yandex.ru
 SMTP_PORT=587
-SMTP_USER=логин@yandex.ru
+SMTP_USER=ваш_логин@yandex.ru
 SMTP_PASSWORD=пароль_приложения
 NOTIFY_EMAIL=куда_отправлять@yandex.ru
+## 5. Запустить бота
+
+bash
+python3 main.py
+## 📋 Команды
+
+| Команда | Доступ | Описание |
+|---------|--------|----------|
+| `/start` | Все | Начать работу |
+| `/help` | Все | Справка |
+| `/stats` | Админ | Статистика бота |
+| `/feedback_view` | Админ | Просмотр отзывов |
+| `/clean_data` | Админ | Очистка старых данных |
+## 🔒 Безопасность
+
+Все секреты хранятся в .env (файл добавлен в .gitignore)
+Доступ к админ-командам только по ADMIN_IDS
+Автоматическое удаление старых данных
+Логирование ошибок с ротацией файлов
